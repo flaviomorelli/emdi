@@ -166,7 +166,7 @@ model_par <- function(framework,
       weight_smp    <- transformation_par$transformed_data[[as.character(framework$weights)]][
         framework$smp_domains_vec == domain]
       weight_sum[d] <- sum(weight_smp)
-      indep_smp     <- model.matrix(fixed, framework$smp_data)[framework$smp_domains_vec == domain,]
+      indep_smp     <- model.matrix(fixed, framework$smp_data[framework$smp_domains_vec == domain,])
       
       # weighted mean of the dependent variable
       mean_dep[d] <- sum(weight_smp * dep_smp) / weight_sum[d]
@@ -178,7 +178,11 @@ model_par <- function(framework,
       
       delta2[d]       <- sum(weight_smp^2) / (weight_sum[d]^2)
       gamma_weight[d] <- sigmau2est / (sigmau2est + sigmae2est * delta2[d])
-      weight_smp_diag <- diag(weight_smp)
+      weight_smp_diag <- if(length(weight_smp) == 1) {
+        matrix(weight_smp, ncol = 1, nrow = 1)
+      } else {
+        diag(weight_smp)
+      }
       dep_var_ast     <- dep_smp - gamma_weight[d] * mean_dep[d]
       indep_weight    <- t(indep_smp) %*% weight_smp_diag
       indep_var_ast   <- indep_smp - matrix(rep(gamma_weight[d] * mean_indep[d,], framework$n_smp[d]),
