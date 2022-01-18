@@ -294,25 +294,25 @@ monte_carlo <- function(transformation,
     )
     
     # Calculation of indicators for each Monte Carlo population
-    ests_mcmc[,l,] <- matrix(nrow=framework$N_dom_pop, data = unlist(lapply(
-      framework$indicator_list, function(f, threshold){matrix(nrow=framework$N_dom_pop, 
-                                                              data = unlist(tapply(
-                                                                population_vector,
-                                                                framework$pop_domains_vec, 
-                                                                f, 
-                                                                threshold = framework$threshold,
-                                                                simplify = TRUE)),byrow = TRUE)}, 
-      threshold = framework$threshold)))
-    
-  } # End for loop
-  
-  
-  # Point estimations of indicators by taking the mean
-  
-  point_estimates <- data.frame(Domain = unique(framework$pop_domains_vec) , 
-                                apply(ests_mcmc, c(3), rowMeans))
-  colnames(point_estimates) <- c("Domain", framework$indicator_names)
-  return(point_estimates)
+  #   ests_mcmc[,l,] <- matrix(nrow=framework$N_dom_pop, data = unlist(lapply(
+  #     framework$indicator_list, function(f, threshold){matrix(nrow=framework$N_dom_pop, 
+  #                                                             data = unlist(tapply(
+  #                                                               population_vector,
+  #                                                               framework$pop_domains_vec, 
+  #                                                               f, 
+  #                                                               threshold = framework$threshold,
+  #                                                               simplify = TRUE)),byrow = TRUE)}, 
+  #     threshold = framework$threshold)))
+  #   
+  # } # End for loop
+  # 
+  # 
+  # # Point estimations of indicators by taking the mean
+  # 
+  # point_estimates <- data.frame(Domain = unique(framework$pop_domains_vec) , 
+  #                               apply(ests_mcmc, c(3), rowMeans))
+  # colnames(point_estimates) <- c("Domain", framework$indicator_names)
+  return(population_vector)
   
 } # End Monte-Carlo
 
