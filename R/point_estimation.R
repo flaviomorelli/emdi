@@ -272,7 +272,9 @@ monte_carlo <- function(transformation,
   #   quant10s = quant25s = mediane = quant75s = quant90s = ginis = qsrs = pgaps =
   #     hcrs = means <- matrix(nrow=framework$N_dom_pop, ncol=L)
   
-  ests_mcmc <- array(dim = c(framework$N_dom_pop,L,length(framework$indicator_names)))
+  # ests_mcmc <- array(dim = c(framework$N_dom_pop,L,length(framework$indicator_names)))
+   
+  df <- data.frame()
   
   for (l in seq_len(L)) {
     
@@ -303,8 +305,10 @@ monte_carlo <- function(transformation,
   #                                                               threshold = framework$threshold,
   #                                                               simplify = TRUE)),byrow = TRUE)}, 
   #     threshold = framework$threshold)))
-  #   
-  # } # End for loop
+  # 
+    df <- rbind(df, t(population_vector))
+  } # End for loop
+  
   # 
   # 
   # # Point estimations of indicators by taking the mean
@@ -312,7 +316,8 @@ monte_carlo <- function(transformation,
   # point_estimates <- data.frame(Domain = unique(framework$pop_domains_vec) , 
   #                               apply(ests_mcmc, c(3), rowMeans))
   # colnames(point_estimates) <- c("Domain", framework$indicator_names)
-  return(population_vector)
+  
+  return(df)
   
 } # End Monte-Carlo
 

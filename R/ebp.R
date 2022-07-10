@@ -315,5 +315,5 @@ ebp <- function(fixed,
     RNGkind(RNG_kind[1]) # restoring RNG type
   }
   class(ebp_out) <- c("ebp", "emdi")
-  return(ebp_out)
+  return(point_estim)
 }
