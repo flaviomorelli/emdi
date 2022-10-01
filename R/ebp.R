@@ -241,6 +241,7 @@ ebp <- function(fixed,
   # Point Estimation -----------------------------------------------------------
   # browser()
   # The function point_estim can be found in script point_estimation.R
+  message("EMDI: starting point estimation...")
   point_estim <- point_estim(framework      = framework,
                                   fixed          = fixed,
                                   transformation = transformation,
@@ -254,7 +255,7 @@ ebp <- function(fixed,
   # MSE Estimation -------------------------------------------------------------
 
   if (MSE == TRUE) {
-
+    message("EMDI: starting MSE estimation...")
   # The function parametric_bootstrap can be found in script mse_estimation.R
     mse_estimates <- parametric_bootstrap(framework      = framework,
                                           point_estim    = point_estim,

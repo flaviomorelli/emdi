@@ -24,6 +24,7 @@ point_estim <- function (framework,
   # Optimal parameter function returns the minimum of the optimization
   # functions from generic_opt; the minimum is the optimal lambda.
   # The function can be found in the script optimal_parameter.R
+  message("EMDI: Searching optimal lambda...")
   optimal_lambda <- optimal_parameter(generic_opt    = generic_opt,
                                       fixed          = fixed,
                                       smp_data       = framework$smp_data,
@@ -48,6 +49,7 @@ point_estim <- function (framework,
   # See Molina and Rao (2010) p. 374
   # lme function is included in the nlme package which is imported.
   
+  message("EMDI: estimating mixed effects model...")
   mixed_model <- nlme::lme(fixed  = fixed,
                            data   = transformation_par$transformed_data ,
                            random = as.formula(paste0("~ 1 | as.factor(", 
@@ -81,6 +83,7 @@ point_estim <- function (framework,
   }
   
   # The monte-carlo function returns a data frame of desired indicators.
+  message("EMDI: calculating MC approximation...")
   indicator_prediction <- monte_carlo(transformation = transformation,
                                       L              = L,
                                       framework      = framework,
